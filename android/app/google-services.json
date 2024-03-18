@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "247547863779",
+    "project_id": "tasktodo-40493",
+    "storage_bucket": "tasktodo-40493.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247547863779:android:185136f15cd1ff7a8a9bd6",
+        "android_client_info": {
+          "package_name": "com.example.task_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxiA2IyvfRhFBPMgODIJTcSvGogZLC_r8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
