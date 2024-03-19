@@ -26,65 +26,65 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-
-              child: Row(
-                children: [
-                  Text("Route",style:  Theme.of(context).textTheme.titleLarge),
-                   SizedBox(width:10,),
-                  Column(
-                    children: [
-                      Text('Welcome to route',style:  Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w400, ),),
-                      SizedBox(height: 10,),
-                      Text('Enjoy our courses',style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700 ,fontSize: 18 )),
-                    ],
-                  ),
-                 SizedBox(width: 10,),
-                 Row(
-                   children: [
-                     IconButton(
-                       onPressed:  (){
-                         isDot=!isDot;
-                         provider.changeTheme(isDot==false?ThemeMode.dark:ThemeMode.light );
-                       },
-
-                       icon:  provider.theme==ThemeMode.light? Icon(Icons.dark_mode,color: Theme.of(context).colorScheme.secondary,):
-                       Icon(Icons.light_mode_rounded, color: Theme.of(context).colorScheme.secondary),
-                     ),
-                   IconButton(onPressed:  (){
-                     Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-
-                   }, icon:  Icon(Icons.exit_to_app,color:  Theme.of(context).colorScheme.secondary)),],)
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+          
+                child: Row(
+                  children: [
+                    Text("Route",style:  Theme.of(context).textTheme.titleLarge),
+                     SizedBox(width:10,),
+                    Column(
+                      children: [
+                        Text('Welcome to route',style:  Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w400, ),),
+                        SizedBox(height: 10,),
+                        Text('Enjoy our courses',style: Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700 ,fontSize: 18 )),
+                      ],
+                    ),
+                   SizedBox(width: 10,),
+                   Row(
+                     children: [
+                       IconButton(
+                         onPressed:  (){
+                           isDot=!isDot;
+                           provider.changeTheme(isDot==false?ThemeMode.dark:ThemeMode.light );
+                         },
+          
+                         icon:  provider.theme==ThemeMode.light? Icon(Icons.dark_mode,color: Theme.of(context).colorScheme.secondary,):
+                         Icon(Icons.light_mode_rounded, color: Theme.of(context).colorScheme.secondary),
+                       ),
+                     IconButton(onPressed:  (){
+                       Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+          
+                     }, icon:  Icon(Icons.exit_to_app,color:  Theme.of(context).colorScheme.secondary)),],)
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 60,),
-            Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Featured Courses",style:Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 15),)),
-
-            StreamBuilder(
-                stream: FireStoreHelper.ListenToFeaturedCourses() ,
-                builder: (BuildContext  context, snapshot) {
-                  List<FeaturedCourses>AllFeatureCourse= snapshot.data ?? [];
-                   return    Expanded(
-                    flex: 2,
-                    child: ListView.separated(
-                        itemBuilder:  (context, index) => FeaturedCoursesWidget(featuredCourse:AllFeatureCourse[index] ),
-                        separatorBuilder: (context, index) => Container(width: 10,),
-                        itemCount:  AllFeatureCourse.length,
-                        scrollDirection: Axis.horizontal),
-                  );
-                },
-            ),
-
-
-SizedBox(height: 18),
-           Expanded(flex: 0,
-             child: Row(
+              SizedBox(height: 60,),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Featured Courses",style:Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 15),)),
+          
+              StreamBuilder(
+                  stream: FireStoreHelper.ListenToFeaturedCourses() ,
+                  builder: (BuildContext  context, snapshot) {
+                    List<FeaturedCourses>AllFeatureCourse= snapshot.data ?? [];
+                     return    Container(
+                       height: 250,
+                       child: ListView.separated(
+                           itemBuilder:  (context, index) => FeaturedCoursesWidget(featuredCourse:AllFeatureCourse[index] ),
+                           separatorBuilder: (context, index) => Container(width: 10,),
+                           itemCount:  AllFeatureCourse.length,
+                           scrollDirection: Axis.horizontal),
+                     );
+                  },
+              ),
+          
+          
+          SizedBox(height: 18),
+             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                  Text("Best Selling Courses",style: Theme.of(context).textTheme.bodyMedium,),
@@ -94,25 +94,27 @@ SizedBox(height: 18),
                    decorationThickness: 2, ),),
                ],
              ),
-           ),
-            StreamBuilder(
-              stream:FireStoreHelper.ListenToBestCourses() ,
-
-              builder: (context, snapshot) {
-                List<BestSellingCourses>AllBestCourses=snapshot.data??[];
-                return Expanded(
-                  flex: 2,
-                  child: ListView.separated
-                    (
-                      itemBuilder:  (context, index) => BestSellingWidget(bestCourse:AllBestCourses[index] ),
-                      separatorBuilder: (context, index) => Container(
-                        height: 25,
-                      ),
-                      itemCount: AllBestCourses.length),
-                );
-              },
-            )
-          ],
+              StreamBuilder(
+                stream:FireStoreHelper.ListenToBestCourses() ,
+          
+                builder: (context, snapshot) {
+                  List<BestSellingCourses>AllBestCourses=snapshot.data??[];
+                  return Container(
+                    height: 360,
+                    child: ListView.separated
+                      (
+                      shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder:  (context, index) => BestSellingWidget(bestCourse:AllBestCourses[index] ),
+                        separatorBuilder: (context, index) => Container(
+                          height: 25,
+                        ),
+                        itemCount: AllBestCourses.length),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
 
